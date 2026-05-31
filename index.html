@@ -11,120 +11,143 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
 
 <style>
-/* TITLE TOY */
+/* TITLE AREA */
 
 .title-wrapper{
 position:relative;
 display:inline-block;
+overflow:visible;
 }
+
+/* TITLE */
+
+.title-wrapper h1{
+position:relative;
+z-index:5;
+}
+
+/* TOY BEHIND TITLE */
 
 .peek-toy{
 position:absolute;
-width:200px;
-left:-90px;
+width:120px;
 top:50%;
-transform:translateY(-50%) translateX(-40px);
+
 opacity:0;
 pointer-events:none;
-z-index:5;
+z-index:1;
+
+/* STARTS ALREADY BEHIND TITLE */
+
+transform:
+translateY(-50%)
+translateX(0px)
+rotate(-8deg)
+scale(0.95);
+
 transition:
-transform 1.5s ease,
-opacity 1.5s ease;
+transform 1.2s ease,
+opacity 1.2s ease,
+left 1s ease;
 }
+
+/* PEEK OUT SLIGHTLY */
 
 .peek-toy.show{
+
 opacity:1;
-transform:translateY(-50%) translateX(0px);
+
+transform:
+translateY(-50%)
+translateX(18px)
+rotate(0deg)
+scale(1);
+
 }
 
+/* MOBILE */
+
+@media(max-width:768px){
+
+.peek-toy{
+width:90px;
+}
+
+}
 /* CORNER TOYS */
 
 .corner-toy{
 position:fixed;
-width:340px;
+width:190px;
 opacity:0;
 pointer-events:none;
 z-index:999;
+
 transition:
 opacity 1.8s ease,
 transform 1.8s ease;
 }
 
-/* WHEN VISIBLE */
+/* SHOW */
 
 .corner-toy.show{
-opacity:0.95;
+opacity:0.92;
 }
 
-/* TOP LEFT */
+/* LEFT SIDE */
 
 .top-left{
-top:-90px;
-left:-90px;
+top:10px;
+left:-35px;
+
 transform:
-translate(-60px,-60px)
-rotate(168deg);
+translateX(-40px)
+rotate(70deg);
 }
 
 .top-left.show{
 transform:
-translate(0px,0px)
-rotate(168deg);
+translateX(0px)
+rotate(70deg);
 }
 
-/* TOP RIGHT */
+/* RIGHT SIDE */
 
 .top-right{
-top:-90px;
-right:-90px;
+top:10px;
+right:-35px;
+
 transform:
-translate(60px,-60px)
-rotate(-168deg);
+translateX(40px)
+rotate(-70deg);
 }
 
 .top-right.show{
 transform:
-translate(0px,0px)
-rotate(-168deg);
+translateX(0px)
+rotate(-70deg);
+}
+/* MOBILE */
+
+@media(max-width:768px){
+
+.peek-toy{
+width:90px;
 }
 
-/* BOTTOM LEFT */
+.corner-toy{
+width:135px;
+}
 
-.bottom-left{
-bottom:-70px;
+.top-left{
 left:-70px;
-transform:
-translate(-60px,60px)
-rotate(8deg);
 }
 
-.bottom-left.show{
-transform:
-translate(0px,0px)
-rotate(8deg);
+.top-right{
+right:-70px;
 }
 
-/* BOTTOM RIGHT */
-
-.bottom-right{
-bottom:-70px;
-left:-70px;
-transform:
-translate(60px,60px)
-rotate(-8deg);
 }
-
-.bottom-right.show{
-transform:
-translate(0px,0px)
-rotate(-8deg);
-}
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
-
 html{
 scroll-behavior:smooth;
 }
@@ -703,11 +726,35 @@ Gracious
 Gracious Restilous C. Artiaga 🌷
 </footer>
 <script>
-/* PEEKING TOY */
+/* RANDOM TITLE PEEK */
 
-const peekToy = document.getElementById("peekToy");
+const peekToy =
+document.getElementById("peekToy");
+
+/* RANDOM POSITIONS */
+
+const peekPositions = [
+
+"8%",
+"18%",
+"30%",
+"42%",
+"55%",
+"68%",
+"80%"
+
+];
 
 function showPeekToy(){
+
+/* RANDOM POSITION */
+
+const randomPosition =
+peekPositions[
+Math.floor(Math.random() * peekPositions.length)
+];
+
+peekToy.style.left = randomPosition;
 
 peekToy.classList.add("show");
 
@@ -719,36 +766,38 @@ peekToy.classList.remove("show");
 
 }
 
-/* FIRST APPEAR */
+/* START */
 
 setTimeout(() => {
 
 showPeekToy();
 
-},2500);
+},3000);
 
-/* REPEAT EVERY FEW SECONDS */
+/* REPEAT */
 
 setInterval(() => {
 
 showPeekToy();
 
-},10000);
+},14000);
 
-/* CORNER STICKERS */
+/* SIDE STICKERS */
 
-const cornerToys =
+const sideToys =
 document.querySelectorAll(".corner-toy");
 
-function showRandomCornerToy(){
+function showRandomSideToy(){
 
-cornerToys.forEach(toy => {
+sideToys.forEach(toy => {
+
 toy.classList.remove("show");
+
 });
 
 const randomToy =
-cornerToys[
-Math.floor(Math.random() * cornerToys.length)
+sideToys[
+Math.floor(Math.random() * sideToys.length)
 ];
 
 randomToy.classList.add("show");
@@ -757,24 +806,24 @@ setTimeout(() => {
 
 randomToy.classList.remove("show");
 
-},15000);
+},18000);
 
 }
 
-/* RANDOM EVERY 45–60 SECONDS */
+/* RANDOM LOOP */
 
-function randomCornerLoop(){
+function randomSideLoop(){
 
-showRandomCornerToy();
+showRandomSideToy();
 
 const nextTime =
-Math.random() * 15000 + 20000;
+Math.random() * 15000 + 35000;
 
-setTimeout(randomCornerLoop,nextTime);
+setTimeout(randomSideLoop,nextTime);
 
 }
 
-setTimeout(randomCornerLoop,12000);
+setTimeout(randomSideLoop,10000);
 /* SNOW INTRO */
 
 const snowContainer = document.getElementById("snow-container");
