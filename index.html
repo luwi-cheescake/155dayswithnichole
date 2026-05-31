@@ -98,19 +98,28 @@ opacity:0.92;
 
 .top-left{
 
+position:fixed;
 top:20px;
-left:-120px;
+left:-90px;
 
-transform:
-rotate(70deg);
+width:260px;
+
+opacity:0;
+
+transform:rotate(70deg);
+
+transition:
+left 1.8s ease,
+opacity 1.8s ease;
 
 }
 
+/* SHOW */
+
 .top-left.show{
 
-transform:
-translateX(35px)
-rotate(70deg);
+left:-40px;
+opacity:0.95;
 
 }
 
@@ -118,19 +127,28 @@ rotate(70deg);
 
 .top-right{
 
+position:fixed;
 top:20px;
-right:-120px;
+right:-90px;
 
-transform:
-rotate(-70deg);
+width:260px;
+
+opacity:0;
+
+transform:rotate(-70deg);
+
+transition:
+right 1.8s ease,
+opacity 1.8s ease;
 
 }
 
+/* SHOW */
+
 .top-right.show{
 
-transform:
-translateX(-35px)
-rotate(-70deg);
+right:-40px;
+opacity:0.95;
 
 }
 /* MOBILE */
@@ -540,9 +558,8 @@ opacity:0;
 <!-- CORNER STICKERS -->
 
 <img src="toy.png" class="corner-toy top-left">
+
 <img src="toy.png" class="corner-toy top-right">
-<img src="toy.png" class="corner-toy bottom-left">
-<img src="toy.png" class="corner-toy bottom-right"><p class="intro">
 a little website i made, to show you how much i adore you
 </p>
 
@@ -790,40 +807,53 @@ showPeekToy();
 
 /* SIDE STICKERS */
 
-const sideToys =
-document.querySelectorAll(".corner-toy");
+const leftToy =
+document.querySelector(".top-left");
+
+const rightToy =
+document.querySelector(".top-right");
 
 function showRandomSideToy(){
 
-sideToys.forEach(toy => {
+/* RESET */
 
-toy.classList.remove("show");
+leftToy.classList.remove("show");
+rightToy.classList.remove("show");
 
-});
+/* PICK RANDOM */
 
-const randomToy =
-sideToys[
-Math.floor(Math.random() * sideToys.length)
-];
+const random =
+Math.random();
 
-randomToy.classList.add("show");
+if(random < 0.5){
 
-setTimeout(() => {
+leftToy.classList.add("show");
 
-randomToy.classList.remove("show");
+}else{
 
-},18000);
+rightToy.classList.add("show");
 
 }
 
-/* RANDOM LOOP */
+/* HIDE */
+
+setTimeout(() => {
+
+leftToy.classList.remove("show");
+rightToy.classList.remove("show");
+
+},24000);
+
+}
+
+/* LOOP */
 
 function randomSideLoop(){
 
 showRandomSideToy();
 
 const nextTime =
-Math.random() * 15000 + 35000;
+Math.random() * 8000 + 18000;
 
 setTimeout(randomSideLoop,nextTime);
 
